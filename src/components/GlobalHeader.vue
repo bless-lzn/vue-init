@@ -10,23 +10,32 @@
       <a-col flex="auto">
         <a-menu v-model:selectedKeys="current" mode="horizontal" :items="items" @click="doMenuClick"/>
       </a-col>
-      <a-col flex="100px">
-        <!--  登录按钮-->
-        <a-button type="primary" href="/user/login">登录</a-button>
+      <a-col flex="80px">
+        <div class="user-login-status">
+          <div v-if="loginUserStore.loginUser.userName">{{ JSON.stringify(loginUserStore.loginUser.userName) }}</div>
+          <div v-else>        <!--  登录按钮-->
+            <a-button type="primary" href="/user/login">登录</a-button>
+          </div>
+
+        </div>
+
+
       </a-col>
     </a-row>
   </div>
 </template>
 <script lang="ts" setup>
 import {h, ref} from 'vue';
-import {MailOutlined, AppstoreOutlined, SettingOutlined, HomeOutlined, CrownOutlined} from '@ant-design/icons-vue';
+import {HomeOutlined, CrownOutlined} from '@ant-design/icons-vue';
 import type {MenuProps} from 'ant-design-vue';
 import {useRouter} from "vue-router";
+import {useLoginUSerStore} from "@/stores/counter.ts";
 
+const loginUserStore = useLoginUSerStore();
 const current = ref<string[]>(['/']);
 const router = useRouter();
-router.afterEach((to, from,next)=>{
-  current.value =[ to.path];
+router.afterEach((to) => {
+  current.value = [to.path];
 })
 
 const doMenuClick = (e: any) => {
@@ -51,7 +60,7 @@ const items = ref<MenuProps['items']>([
     title: '用户注册',
   },
   {
-    key: "/admin/userManage",
+    key: "/admin/userManager",
     icon: () => h(CrownOutlined),
     label: '用户管理',
     title: '用户管理',
