@@ -8,7 +8,7 @@
         </div>
       </a-col>
       <a-col flex="auto">
-        <a-menu v-model:selectedKeys="current" mode="horizontal" :items="items"/>
+        <a-menu v-model:selectedKeys="current" mode="horizontal" :items="items" @click="doMenuClick"/>
       </a-col>
       <a-col flex="100px">
         <!--  登录按钮-->
@@ -21,8 +21,18 @@
 import {h, ref} from 'vue';
 import {MailOutlined, AppstoreOutlined, SettingOutlined, HomeOutlined, CrownOutlined} from '@ant-design/icons-vue';
 import type {MenuProps} from 'ant-design-vue';
+import {useRouter} from "vue-router";
 
-const current = ref<string[]>(['mail']);
+const current = ref<string[]>(['/']);
+const router = useRouter();
+router.afterEach((to, from,next)=>{
+  current.value =[ to.path];
+})
+
+const doMenuClick = (e: any) => {
+  router.push(e.key);
+};
+
 const items = ref<MenuProps['items']>([
   {
     key: '/',

@@ -5,7 +5,7 @@
         <GlobalHeader></GlobalHeader>
       </a-layout-header>
       <a-layout-content class="content">
-
+    <RouterView></RouterView>
       </a-layout-content>
       <a-layout-footer class="footer">Footer</a-layout-footer>
     </a-layout>
