@@ -6,7 +6,7 @@ import myAxios from "@/request.ts";
 export const useLoginUSerStore = defineStore('loginUser', () => {
     const loginUser = ref({
         userName: '未登录',
-
+        userRole: 0
     })
 
     async function fetchLoginUser() {
